@@ -18,60 +18,6 @@ for fn, content in zip(files, contents):
     f.write(content)
     f.close()
 
-try:
-    connection = sqlite3.connect('../DATA/calendar.db')
-    cursor = connection.cursor()
-
-    command = '''CREATE TABLE reminders (
-    interval INTEGER,
-    time INTEGER,
-    message VARCHAR(1900),
-    channel INTEGER
-    );'''
-
-    cursor.execute(command)
-    connection.commit()
-    connection.close()
-except sqlite3.OperationalError:
-    print('Skipping table generation')
-
-try:
-    with sqlite3.connect('../DATA/calendar.db') as connection:
-        cursor = connection.cursor()
-
-        command = '''CREATE TABLE servers (
-        id INTEGER,
-        prefix VARCHAR,
-        timezone VARCHAR,
-        language VARCHAR,
-        blacklist VARCHAR,
-        restrictions VARCHAR,
-        tags VARCHAR,
-        autoclears VARCHAR
-        )'''
-
-        cursor.execute(command)
-        connection.commit()
-
-except sqlite3.OperationalError:
-    print('Skipping server table gen')
-
-try:
-    with sqlite3.connect('../DATA/calendar.db') as connection:
-        cursor = connection.cursor()
-
-        command = '''CREATE TABLE connections (
-        id INTEGER,
-        users VARCHAR
-        )'''
-
-        cursor.execute(command)
-        connection.commit()
-
-except sqlite3.OperationalError:
-    print('Skipping connection table gen')
-
-
 if 'config.ini' not in os.listdir('..'):
     config = configparser.ConfigParser()
     config['DEFAULT'] = {
@@ -79,6 +25,19 @@ if 'config.ini' not in os.listdir('..'):
         'dbl_token' : 'discordbotslist token',
         'patreon_server' : 'serverid',
         'patreon_enabled' : 'yes'
+    }
+
+    config['WEB'] = {
+        'DISCORD_OAUTH_CLIENT_ID' : 'id',
+        'DISCORD_OAUTH_CLIENT_SECRET' : 'secretkey',
+        'SECRET' : 'secretkey'
+    }
+
+    config['MYSQL'] = {
+        'user' : 'username',
+        'passwd' : 'password',
+        'host' : 'localhost',
+        'database' : 'reminders'
     }
 
     with open('../config.ini', 'w') as f:
