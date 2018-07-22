@@ -24,7 +24,8 @@ if 'config.ini' not in os.listdir('..'):
         'token' : 'token',
         'dbl_token' : 'discordbotslist token',
         'patreon_server' : 'serverid',
-        'patreon_enabled' : 'yes'
+        'patreon_enabled' : 'yes',
+        'strings_location' : './languages/'
     }
 
     config['WEB'] = {
