@@ -38,6 +38,7 @@ if 'config.ini' not in os.listdir('..'):
         'passwd' : 'password',
         'host' : 'localhost',
         'database' : 'reminders'
+        'database_sfx' : 'soundfx'
     }
 
     with open('../config.ini', 'w') as f:
